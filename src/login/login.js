@@ -26,7 +26,6 @@ export default class Login extends React.Component{
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state.login+' '+this.state.senha);
         const dados = {
             login: this.state.login,
             senha: this.state.senha
@@ -41,7 +40,7 @@ export default class Login extends React.Component{
                 });
         }
         else{
-            axios.post(`${URL_MOCK}f7f428cf-7051-4d7a-a5f8-96db7f3e421c`, dados)
+            axios.post(`${URL_MOCK}74ba9f9a-b46f-4ced-83ec-421e098e5cb9`, dados) //mockio prestador
                 .then(res => this.validaAcesso(res))
                 .catch(error => {
                     console.log(error);
@@ -61,7 +60,7 @@ export default class Login extends React.Component{
             alert(obj.msg);
         }
         else{
-            localStorage.setItem('usuario', obj);
+            localStorage.setItem('usuario', JSON.stringify(obj));
 
             window.location.href="/home";
         }
