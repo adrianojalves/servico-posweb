@@ -3,15 +3,20 @@ import {Password} from 'primereact/password';
 import { Button } from 'primereact/button';
 import React  from 'react';
 import axios from 'axios';
+import {isLogado} from '../auth';
 import { URL_BACK, URL_MOCK, BACKEND} from "../auth";
 
 export default class Login extends React.Component{
     constructor(props, context) {
+        if(isLogado()){
+            window.location.href="/home";
+        }
         super();
         this.state = {login: '', senha: ''};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
     handleChange(event) {
