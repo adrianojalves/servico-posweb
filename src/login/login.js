@@ -5,6 +5,7 @@ import React  from 'react';
 import axios from 'axios';
 import {isLogado} from '../auth';
 import { URL_BACK, URL_MOCK, BACKEND} from "../auth";
+import { Link } from 'react-router-dom';
 
 export default class Login extends React.Component{
     constructor(props, context) {
@@ -86,6 +87,8 @@ export default class Login extends React.Component{
                   </div>
     
                   <Button label="Logar" type="submit" className="p-button-raised p-button-secondary p-button-rounded" />
+
+                  <Link to="/create-pessoa"><Button label="Criar Cadastro" className="p-button-link p-button-secondary" /></Link>
               </div>
             </form>
           </div>

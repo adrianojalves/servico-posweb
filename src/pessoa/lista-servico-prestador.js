@@ -290,12 +290,12 @@ export default class ListaServicoPrestador extends Component {
                 <div className="p-formgrid p-grid">
                     <div className="p-field p-col">
                         <label htmlFor="preco">Preço</label>
-                        <InputNumber id="preco" value={this.state.servico.preco} onValueChange={(e) => this.onInputNumberChange(e, 'preco')} mode="currency" className={classNames({ 'p-invalid': this.state.valida && !this.state.servico.preco })} maxFractionDigits={2} minFractionDigits={2} currency="brl" locale="pt-BR" />
+                        <InputNumber id="preco" required value={this.state.servico.preco} onValueChange={(e) => this.onInputNumberChange(e, 'preco')} mode="currency" className={classNames({ 'p-invalid': this.state.valida && !this.state.servico.preco })} maxFractionDigits={2} minFractionDigits={2} currency="brl" locale="pt-BR" />
                         {this.state.valida && !this.state.servico.preco && <small className="p-invalid">Digite o preço.</small>}
                     </div>
                     <div className="p-field p-col">
                         <label htmlFor="tempoServico">Tempo de Serviço</label>
-                        <InputNumber id="tempoServico" value={this.state.servico.tempoServico} onValueChange={(e) => this.onInputNumberChange(e, 'tempoServico')} integeronly className={classNames({ 'p-invalid': this.state.valida && !this.state.servico.tempoServico })} />
+                        <InputNumber id="tempoServico" required value={this.state.servico.tempoServico} onValueChange={(e) => this.onInputNumberChange(e, 'tempoServico')} integeronly className={classNames({ 'p-invalid': this.state.valida && !this.state.servico.tempoServico })} />
                         {this.state.valida && !this.state.servico.tempoServico && <small className="p-invalid">Digite o tempo de Serviço.</small>}
                     </div>
                 </div>

@@ -1,0 +1,40 @@
+.container{
+    width: 90%;
+    margin: 10px auto;
+    background-color: whitesmoke !important;
+    height: 92%;
+}
+
+.center{
+    text-align: center !important;
+}
+
+.confirmation-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cadastro{
+    width: 50%;
+    margin-left: 20%;
+}
+
+.p-highlight{
+    background-color: cadetblue !important;
+    font-weight: bold;
+}
+
+.show{
+    display: block;
+}
+.hide{
+    display: none !important;
+}
+
+.divBotao{
+    text-align: center;
+}
+.divBotao button{
+    width: 30% !important;
+}
