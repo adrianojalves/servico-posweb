@@ -1,0 +1,23 @@
+.container{
+    width: 90%;
+    margin: 10px auto;
+    background-color: whitesmoke !important;
+    height: 92%;
+}
+.mouse:hover{
+    background-color: aquamarine !important;
+}
+
+.aceito{
+    color: blue !important;
+}
+
+.center{
+    text-align: center !important;
+}
+
+.datatable-crud-demo .confirmation-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

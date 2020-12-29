@@ -43,7 +43,7 @@ export default class Home extends React.Component{
 
                 <div className={this.divCliente}>
                     <div className="p-col-4"></div>
-                    <div className="p-col-4"><Button className="p-button-secondary p-button-rounded p-button-lg" label="Solicitar Orçamento" icon="pi pi-bookmark" /></div>
+                    <div className="p-col-4"><Link to="/cliente/orcamentos"><Button className="p-button-secondary p-button-rounded p-button-lg" label="Orçamentos" icon="pi pi-bookmark" /></Link></div>
                     <div className="p-col-4"></div>
                 </div>
           </div>
