@@ -9,6 +9,10 @@ export default class Topo extends React.Component{
         window.location.href="/";
     }
 
+    goHome(){
+      window.location.href="/home";
+    }
+
     classNames = require('classnames');
 
     btnGroupClasses = this.classNames(
@@ -24,6 +28,7 @@ export default class Topo extends React.Component{
             <header className="App-header">
                 Serviços Gerais
                 <div className={this.btnGroupClasses}><Button label="Logout" onClick={this.logout} className="p-button-raised p-button-secondary p-button-rounded" /></div>
+                <div className={this.btnGroupClasses}><Button label="Home" onClick={this.goHome} className="p-button-raised p-button-secondary p-button-rounded" /></div>
             </header>
         );
       }

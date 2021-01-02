@@ -21,3 +21,7 @@
     align-items: center;
     justify-content: center;
 }
+
+div.p-component-overlay.p-datepicker-mask.p-datepicker-mask-scrollblocker{
+    z-index: 900 !important;
+}

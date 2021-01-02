@@ -246,7 +246,7 @@ export default class ListaServicoPrestador extends Component {
         axios.get(BACKEND?`${URL_BACK}/servicos/list`:`${URL_MOCK}e137da93-5157-4b8f-b360-5bf46c429352`,
         {
             params: {
-              nome: 'nome',
+              nome: '',
               idPrestador: getId()
             }
         })
