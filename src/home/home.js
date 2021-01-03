@@ -36,9 +36,10 @@ export default class Home extends React.Component{
         return (
             <div className="container">
                 <div className={this.divPrestador}>
-                    <div className="p-col-4"></div>
-                    <div className="p-col-4"><Link to="/prestador/list-servicos"><Button className="p-button-secondary p-button-rounded p-button-lg" label="Serviços" icon="pi pi-bars" /></Link></div>
-                    <div className="p-col-4"></div>
+                    <div className="p-col-3"></div>
+                    <div className="p-col-3"><Link to="/prestador/list-servicos"><Button className="p-button-secondary p-button-rounded p-button-lg" label="Serviços" icon="pi pi-bars" /></Link></div>
+                    <div className="p-col-3"><Link to="/prestador/orcamentos"><Button className="p-button-secondary p-button-rounded p-button-lg" label="Orçamentos" icon="pi pi-bookmark" /></Link></div>
+                    <div className="p-col-3"></div>
                 </div>
 
                 <div className={this.divCliente}>

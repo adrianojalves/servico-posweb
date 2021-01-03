@@ -6,6 +6,7 @@ import Home from './home/home';
 import Login from './login/login';
 import ListaServicoPrestador from "./pessoa/lista-servico-prestador";
 import Orcamentos from "./pessoa/orcamentos"
+import ListaOrcamentoPrestador from "./pessoa/prestador-orcamentos"
 
 const PrivateRoute = ({component: Component,  ...rest}) => (
     <Route {...rest } render={props => (
@@ -25,6 +26,7 @@ const Routes = () => (
             <PrivateRoute exact path="/home" component={Home} />
             <PrivateRoute exact path="/prestador/list-servicos" component={ListaServicoPrestador} />
             <PrivateRoute exact path="/cliente/orcamentos" component={Orcamentos} />
+            <PrivateRoute exact path="/prestador/orcamentos" component={ListaOrcamentoPrestador} />
         </Switch>
     </BrowserRouter>
 );
