@@ -9,6 +9,8 @@ import { InputText } from 'primereact/inputtext';
 import { URL_BACK, URL_MOCK, BACKEND, getId} from "../auth";
 import axios from 'axios';
 import classNames from 'classnames';
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 import "./lista-servico-prestador.css";
 
 export default class ListaServicoPrestador extends Component {
@@ -67,8 +69,37 @@ export default class ListaServicoPrestador extends Component {
         return (
             <React.Fragment>
                 <Button label="Novo" icon="pi pi-plus" className="p-button-success p-mr-2"  onClick={this.openNew}/>
+                <Button label="Relatório" icon="pi pi-file-pdf" className="p-button-success p-mr-2"  onClick={() => this.geraReport()}/>
             </React.Fragment>
         )
+    }
+
+    geraReport(){
+        const unit = "pt";
+        const size = "A4"; // Use A1, A2, A3 or A4
+        const orientation = "portrait"; // portrait or landscape
+    
+        const marginLeft = 40;
+        const doc = new jsPDF(orientation, unit, size);
+    
+        doc.setFontSize(15);
+    
+        const title = "Serviços";
+        const headers = [["Nome", "Preço","Tempo Serviço"]];
+
+        let servicos = this.state.servicos;
+
+        const data = servicos.map(s=> [s.nome, this.formatCurrency(s.preco), s.tempoServico]);
+    
+        let content = {
+          startY: 50,
+          head: headers,
+          body: data
+        };
+    
+        doc.text(title, marginLeft, 40);
+        doc.autoTable(content);
+        doc.save("servico.pdf")
     }
 
     openNew = () => {

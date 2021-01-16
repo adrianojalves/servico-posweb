@@ -11,6 +11,8 @@ import { Calendar } from 'primereact/calendar';
 import classNames from 'classnames';
 import "./orcamentos.css";
 import moment from 'moment';
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 export default class Orcamentos extends Component {
     constructor(props) {
@@ -130,8 +132,39 @@ export default class Orcamentos extends Component {
         return (
             <React.Fragment>
                 <Button label="Novo" icon="pi pi-plus" className="p-button-success p-mr-2"  onClick={this.openNew}/>
+                <Button label="Relatório" style={{ marginLeft:'5px' }} icon="pi pi-file-pdf" className="p-button-success p-mr-2"  onClick={() => this.geraReport()}/>
             </React.Fragment>
         )
+    }
+
+    geraReport(){
+        const unit = "pt";
+        const size = "A4"; // Use A1, A2, A3 or A4
+        const orientation = "portrait"; // portrait or landscape
+    
+        const marginLeft = 40;
+        const doc = new jsPDF(orientation, unit, size);
+    
+        doc.setFontSize(15);
+    
+        const title = "Orçamentos";
+        const headers = [["Prestador", "Preço","Solicitação", "Atendimento", "Aceito"]];
+
+        let orcamentos = this.state.orcamentos;
+
+        const data = orcamentos.map(o => [o.idServico.idProfissional.nome, this.formatCurrency(o.idServico.preco),
+                                    this.formatDate(o.dtSolicitacao), this.formatDate(o.dtAtendimento),
+                                     o.aceito?"SIM":"NÃO"]);
+    
+        let content = {
+          startY: 50,
+          head: headers,
+          body: data
+        };
+    
+        doc.text(title, marginLeft, 40);
+        doc.autoTable(content);
+        doc.save("orcamentos.pdf");
     }
 
     openNew = () => {

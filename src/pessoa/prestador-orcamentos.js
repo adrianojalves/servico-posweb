@@ -9,6 +9,8 @@ import { Dropdown } from 'primereact/dropdown';
 import axios from 'axios';
 import "./lista-servico-prestador.css";
 import moment from 'moment';
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 export default class ListaOrcamentoPrestador extends Component {
     constructor(props) {
@@ -65,8 +67,39 @@ export default class ListaOrcamentoPrestador extends Component {
         return (
             <React.Fragment>
                 <Dropdown value={this.state.tipo} options={this.options} onChange={this.onTipoChange} optionLabel="name" optionValue="value" placeholder="Selecione o tipo" />
+                <Button label="Relatório" style={{ marginLeft:'5px' }} icon="pi pi-file-pdf" className="p-button-success p-mr-2"  onClick={() => this.geraReport()}/>
             </React.Fragment>
         )
+    }
+
+    geraReport(){
+        const unit = "pt";
+        const size = "A4"; // Use A1, A2, A3 or A4
+        const orientation = "portrait"; // portrait or landscape
+    
+        const marginLeft = 40;
+        const doc = new jsPDF(orientation, unit, size);
+    
+        doc.setFontSize(15);
+    
+        const title = "Orçamentos";
+        const headers = [["Cliente", "Preço","Solicitação", "Atendimento", "Aceito"]];
+
+        let orcamentos = this.state.orcamentos;
+
+        const data = orcamentos.map(o => [o.idCliente.pessoa.nome, this.formatCurrency(o.idServico.preco),
+                                    this.formatDate(o.dtSolicitacao), this.formatDate(o.dtAtendimento),
+                                     o.aceito?"SIM":"NÃO"]);
+    
+        let content = {
+          startY: 50,
+          head: headers,
+          body: data
+        };
+    
+        doc.text(title, marginLeft, 40);
+        doc.autoTable(content);
+        doc.save("orcamentos.pdf");
     }
 
     hideConfirmaDialog = () => {
