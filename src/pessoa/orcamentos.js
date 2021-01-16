@@ -343,7 +343,7 @@ export default class Orcamentos extends Component {
         axios.get(BACKEND?`${URL_BACK}/orcamentos/list`:`${URL_MOCK}c592efa1-361e-4cd0-ba06-15e5d70ab12d`,
         {
             params: {
-              nome: 'nome',
+              nome: '',
               idCliente: getId()
             }
         })

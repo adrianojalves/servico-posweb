@@ -50,4 +50,4 @@ export const getId = () => {
 export const URL_MOCK = "https://run.mocky.io/v3/";
 export const URL_BACK = "http://localhost:5000/api";
 
-export const BACKEND=false;
+export const BACKEND=true;

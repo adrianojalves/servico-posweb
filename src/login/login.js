@@ -41,8 +41,13 @@ export default class Login extends React.Component{
             axios.post(`${URL_BACK}/login`, dados)
                 .then(res => this.validaAcesso(res))
                 .catch(error => {
-                    console.log(error);
-                    this.mostraErro("Erro ao acessar serviço remoto");
+                    console.log(error.response);
+                    if(error.response.status=401){
+                        this.mostraErro("Usuário ou senha inválida");    
+                    }
+                    else{
+                        this.mostraErro("Erro ao acessar serviço remoto");
+                    }
                 });
         }
         else{

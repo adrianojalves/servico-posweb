@@ -43,8 +43,8 @@ export default class CreatePessoa extends Component {
       else{
         pessoa.tipo="P";
       }
-
-      var url = BACKEND? `${URL_BACK}/api/pessoa`:`${URL_MOCK}e08f2b38-679c-4807-a04b-3c6f30749811`;
+      //26555646004
+      var url = BACKEND? `${URL_BACK}/pessoa`:`${URL_MOCK}e08f2b38-679c-4807-a04b-3c6f30749811`;
 
       axios.post(url, pessoa)
         .then(res => {
