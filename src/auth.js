@@ -18,7 +18,7 @@ export const isCliente = () => {
     }
     user = JSON.parse(user);
 
-   // console.log("iscliente="+(user.tipoPessoa==="C"));
+   // console.log("iscliente="+(user.tipoPessoa==="C")); 65026976077
     return user.tipoPessoa==="C";
 }
 

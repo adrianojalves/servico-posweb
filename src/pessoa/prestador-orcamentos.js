@@ -77,7 +77,7 @@ export default class ListaOrcamentoPrestador extends Component {
 
     confirmaOrcamento = () => {
         let _orcamento = this.state.orcamento;
-        var url = BACKEND? `${URL_BACK}/api/orcamentos/${_orcamento.idOrcamento}/aceitar`:`${URL_MOCK}e08f2b38-679c-4807-a04b-3c6f30749811`;
+        var url = BACKEND? `${URL_BACK}/orcamentos/${_orcamento.idOrcamento}/aceitar`:`${URL_MOCK}e08f2b38-679c-4807-a04b-3c6f30749811`;
 
         axios.put(url, null)
             .then(res => {
@@ -168,8 +168,7 @@ export default class ListaOrcamentoPrestador extends Component {
             <Toolbar className="p-mb-4" left={this.leftToolbarTemplate}></Toolbar>
             <div className="card">
                 <DataTable rowClassName={this.rowClass} value={this.state.orcamentos} header="Lista de Orçamentos" className="p-datatable-gridlines p-datatable-striped tr">
-                    <Column field="idOrcamento" header="Cód" style={{width:'6%'}}></Column>
-                    <Column field="idCliente.nome" header="Cliente" style={{width:'47%'}}></Column>
+                    <Column field="idCliente.pessoa.nome" header="Cliente" style={{width:'63%'}}></Column>
                     <Column field="idServico.preco" header="Preço" body={this.priceBodyTemplate} style={{width:'8%'}}></Column>
                     <Column field="dtSolicitacao" header="Solicitação" body={this.dateSolicitacaoBodyTemplate} style={{width:'11%'}}></Column>
                     <Column field="dtAtendimento" body={this.dateAtendimentoBodyTemplate} header="Atendimento" style={{width:'11%'}}></Column>

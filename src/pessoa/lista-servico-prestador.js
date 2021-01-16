@@ -116,7 +116,7 @@ export default class ListaServicoPrestador extends Component {
     deleteServico = () => {
         let servico = this.state.servico;
             
-        var url = BACKEND? `${URL_BACK}/api/servicos/${servico.idServico}`:`${URL_MOCK}e08f2b38-679c-4807-a04b-3c6f30749811`;
+        var url = BACKEND? `${URL_BACK}/servicos/${servico.idServico}`:`${URL_MOCK}e08f2b38-679c-4807-a04b-3c6f30749811`;
 
         axios.delete(url, null)
             .then(res => {
@@ -161,10 +161,10 @@ export default class ListaServicoPrestador extends Component {
         if (this.validar()) {
             let servico = this.state.servico;
             
-            var url = BACKEND? `${URL_BACK}/api/servicos`:`${URL_MOCK}f76d302f-760a-419c-ab0b-ff2613869211`;
+            var url = BACKEND? `${URL_BACK}/servicos`:`${URL_MOCK}f76d302f-760a-419c-ab0b-ff2613869211`;
 
             if(servico.idServico){
-                axios.put(url, servico)
+                axios.put(url+"/"+servico.idServico, servico)
                     .then(res => {
                         this.trataRetorno(res);
                     })
@@ -193,6 +193,10 @@ export default class ListaServicoPrestador extends Component {
         else{
             if(BACKEND){
                 this.componentDidMount();
+
+                this.setState({
+                    servicoDialog: false
+                });
             }
             else{
                 let _servicos = this.state.servicos;
@@ -271,8 +275,7 @@ export default class ListaServicoPrestador extends Component {
             <Toolbar className="p-mb-4" left={this.leftToolbarTemplate}></Toolbar>
             <div className="card">
                 <DataTable rowClassName={this.rowClass} value={this.state.servicos} header="Lista de Serviços" className="p-datatable-gridlines p-datatable-striped tr">
-                    <Column field="idServico" header="Cód" style={{width:'7%'}}></Column>
-                    <Column field="nome" header="Nome" style={{width:'63%'}}></Column>
+                    <Column field="nome" header="Nome" style={{width:'70%'}}></Column>
                     <Column field="preco" header="Preço" body={this.priceBodyTemplate} style={{width:'10%'}}></Column>
                     <Column field="tempoServico" header="Tmp Serviço" style={{width:'10%'}}></Column>
                     <Column className="center" body={this.actionBodyTemplate} style={{width:'10%'}}></Column>

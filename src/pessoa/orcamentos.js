@@ -156,7 +156,7 @@ export default class Orcamentos extends Component {
     }
 
     showServicos = () => {
-        axios.get(BACKEND?`${URL_BACK}/servicos/listAll`:`${URL_MOCK}e85834b8-d5fe-4b31-9e1d-6c7c8cb07768`,
+        axios.get(BACKEND?`${URL_BACK}/servicos/list`:`${URL_MOCK}e85834b8-d5fe-4b31-9e1d-6c7c8cb07768`,
         {
             params: {
               nome: ''
@@ -182,7 +182,7 @@ export default class Orcamentos extends Component {
     hideDeleteDialog = () => {
         this.setState({
             dialogDelete: false,
-            orcamento: this.emptyorcamento()
+            orcamento: this.emptyOrcamento
         });
     }
 
@@ -209,11 +209,11 @@ export default class Orcamentos extends Component {
     deleteOrcamento = () => {
         let orcamento = this.state.orcamento;
             
-        var url = BACKEND? `${URL_BACK}/api/orcamento/${orcamento.idOrcamento}`:`${URL_MOCK}e08f2b38-679c-4807-a04b-3c6f30749811`;
+        var url = BACKEND? `${URL_BACK}/orcamentos/${orcamento.idOrcamento}`:`${URL_MOCK}e08f2b38-679c-4807-a04b-3c6f30749811`;
 
         axios.delete(url, null)
             .then(res => {
-                if(res.data.erro){
+                if(res.data.erro===true){
                     alert(res.data.msg);
                 }
                 else{
@@ -256,10 +256,10 @@ export default class Orcamentos extends Component {
 
             orcamento.dtAtendimento = moment(orcamento.dtAtendimento).format('YYYY-MM-DD');
             
-            var url = BACKEND? `${URL_BACK}/api/orcamentos`:`${URL_MOCK}f76d302f-760a-419c-ab0b-ff2613869211`;
+            var url = BACKEND? `${URL_BACK}/orcamentos`:`${URL_MOCK}f76d302f-760a-419c-ab0b-ff2613869211`;
 
             if(orcamento.idOrcamento){
-                axios.put(url, orcamento)
+                axios.put(url+"/"+orcamento.idOrcamento, orcamento)
                     .then(res => {
                         this.trataRetorno(res);
                     })
@@ -287,6 +287,9 @@ export default class Orcamentos extends Component {
         }
         else{
             if(BACKEND){
+                this.setState({
+                    orcamentoDialog: false
+                });
                 this.componentDidMount();
             }
             else{
@@ -386,8 +389,7 @@ export default class Orcamentos extends Component {
             <Toolbar className="p-mb-4" left={this.leftToolbarTemplate}></Toolbar>
             <div className="card">
                 <DataTable rowClassName={this.rowClass} value={this.state.orcamentos} header="Lista de Orçamentos" className="p-datatable-gridlines p-datatable-striped tr">
-                    <Column field="idOrcamento" header="Cód" style={{width:'6%'}}></Column>
-                    <Column field="idServico.idProfissional.nome" header="Prestador" style={{width:'47%'}}></Column>
+                    <Column field="idServico.idProfissional.nome" header="Prestador" style={{width:'53%'}}></Column>
                     <Column field="idServico.preco" header="Preço" body={this.priceBodyTemplate} style={{width:'8%'}}></Column>
                     <Column field="dtSolicitacao" header="Solicitação" body={this.dateSolicitacaoBodyTemplate} style={{width:'11%'}}></Column>
                     <Column field="dtAtendimento" body={this.dateAtendimentoBodyTemplate} header="Atendimento" style={{width:'11%'}}></Column>
@@ -434,8 +436,7 @@ export default class Orcamentos extends Component {
                         className="p-datatable-gridlines p-datatable-striped tr"
                         paginator currentPageReportTemplate="{first}/{last} de {totalRecords} Serviços" rows={6} rowsPerPageOptions={[6,12,18]}
                          >
-                        <Column field="idServico" header="Cód" style={{width:'7%'}}></Column>
-                        <Column field="nome" header="Nome" style={{width:'63%'}}></Column>
+                        <Column field="nome" header="Nome" style={{width:'70%'}}></Column>
                         <Column field="preco" header="Preço" body={this.priceBodyTemplate} style={{width:'10%'}}></Column>
                         <Column field="tempoServico" header="Tmp Serviço" style={{width:'10%'}}></Column>
                         <Column className="center" body={this.actionBodyServicoTemplate} style={{width:'5%'}}></Column>
