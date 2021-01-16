@@ -24,7 +24,7 @@ export default class ListaServicoPrestador extends Component {
         };
         
         this.state = {servicos: [], servico: this.emptyServico, servicoDialog: false, valida: false,
-                        dialogDelete: false};
+                        dialogDelete: false, nome: ''};
 
         this.servicoDialogFooter = 
                 <React.Fragment>
@@ -100,6 +100,13 @@ export default class ListaServicoPrestador extends Component {
 
         this.setState({
             servico: _servico,
+        });
+    }
+
+    changeNome(e){
+        const val = (e.target && e.target.value) || '';
+        this.setState({
+            nome: val,
         });
     }
 
@@ -250,7 +257,7 @@ export default class ListaServicoPrestador extends Component {
         axios.get(BACKEND?`${URL_BACK}/servicos/list`:`${URL_MOCK}e137da93-5157-4b8f-b360-5bf46c429352`,
         {
             params: {
-              nome: '',
+              nome: this.state.nome,
               idPrestador: getId()
             }
         })
@@ -273,6 +280,18 @@ export default class ListaServicoPrestador extends Component {
         return (
         <div className="container">
             <Toolbar className="p-mb-4" left={this.leftToolbarTemplate}></Toolbar>
+            <div className="card">
+                <div className="p-formgrid p-grid p-fluid">
+                    <div className="p-field p-col-10">
+                        <label className="p-d-block" htmlFor="Nome">Nome do Serviço</label>
+                        <InputText id="nomePesquisa" onChange={(e) => this.changeNome(e)} value={this.state.nome}  />
+                    </div>
+                    <div className="p-field p-col-2">
+                        <Button style={{marginTop: '25px'}} label="Pesquisar" icon="pi pi-search" className="p-button-raised p-button-success" title="Buscar Serviços" 
+                            onClick={() => this.componentDidMount()}/>
+                    </div>
+                </div>
+            </div>
             <div className="card">
                 <DataTable rowClassName={this.rowClass} value={this.state.servicos} header="Lista de Serviços" className="p-datatable-gridlines p-datatable-striped tr">
                     <Column field="nome" header="Nome" style={{width:'70%'}}></Column>

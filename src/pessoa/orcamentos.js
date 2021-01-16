@@ -29,7 +29,7 @@ export default class Orcamentos extends Component {
         
         this.state = {orcamentos: [], orcamento: this.emptyOrcamento(), orcamentoDialog: false, valida: false,
                         dialogDelete: false, orcamentoDialogServico: false,
-                        listServicos: []};
+                        listServicos: [], dtInicial: null, dtFinal: null};
 
         this.orcamentoDialogFooter = 
                 <React.Fragment>
@@ -341,13 +341,17 @@ export default class Orcamentos extends Component {
             return false;
         }
     }
-    
-    componentDidMount() {
+
+    pesquisar(){
+        const dtInicial = this.state.dtInicial;
+        const dtFinal = this.state.dtFinal;
         axios.get(BACKEND?`${URL_BACK}/orcamentos/list`:`${URL_MOCK}c592efa1-361e-4cd0-ba06-15e5d70ab12d`,
         {
             params: {
               nome: '',
-              idCliente: getId()
+              idCliente: getId(),
+              dataAtendimentoInicial: dtInicial,
+              dataAtendimentoFinal: dtFinal
             }
         })
           .then(res => {
@@ -361,7 +365,11 @@ export default class Orcamentos extends Component {
           .catch((error) => {
               console.log(error);
             alert("Erro ao buscar serviços.");
-          })
+          });
+    }
+    
+    componentDidMount() {
+        this.pesquisar();
     }
 
     dadosServico(){
@@ -381,12 +389,39 @@ export default class Orcamentos extends Component {
             orcamento: _orcamento
         });
     }
-  
+
+    changeDtInicial(data){
+        this.setState({
+            dtInicial: data
+        });
+    }
+
+    changeDtFinal(data){
+        this.setState({
+            dtFinal: data
+        });
+    }
 
     render() {
         return (
         <div className="container">
             <Toolbar className="p-mb-4" left={this.leftToolbarTemplate}></Toolbar>
+            <div className="card">
+                <div className="p-formgrid p-grid">
+                    <div className="p-field p-col-5">
+                        <label className="p-d-block" htmlFor="dtInicial">Dt Atendimento Inicial</label>
+                        <Calendar id="dtInicial" value={this.state.dtInicial} onChange={(e) => this.changeDtInicial(e.value)} locale={this.ptBr} dateFormat="dd/mm/yy" touchUI />
+                    </div>
+                    <div className="p-field p-col-5">
+                        <label className="p-d-block" htmlFor="dtFinal">Dt Atendimento Final</label>
+                        <Calendar id="dtFinal" value={this.state.dtFinal} onChange={(e) => this.changeDtFinal(e.value)} locale={this.ptBr} dateFormat="dd/mm/yy" touchUI />
+                    </div>
+                    <div className="p-field p-col-2">
+                        <Button style={{marginTop: '15px'}} label="Pesquisar" icon="pi pi-search" className="p-button-raised p-button-success" title="Buscar Orçamentos" 
+                            onClick={() => this.pesquisar()}/>
+                    </div>
+                </div>
+            </div>
             <div className="card">
                 <DataTable rowClassName={this.rowClass} value={this.state.orcamentos} header="Lista de Orçamentos" className="p-datatable-gridlines p-datatable-striped tr">
                     <Column field="idServico.idProfissional.nome" header="Prestador" style={{width:'53%'}}></Column>
